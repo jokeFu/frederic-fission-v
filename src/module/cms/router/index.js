@@ -9,7 +9,7 @@ export default [{
   children: [
     {path: '/cms/page/list', name: '页面列表', component: page_list, hidden: false}
   ]
-  // ,这是一个简单的更改
+  // ,
   // redirect: '/home',
   // children: [
   //   {path: 'home', component: Home}
