@@ -13,6 +13,11 @@
       页面别名：
       <el-input v-model="params.pageAliase" style="width: 100px"></el-input>
       <el-button type="primary" v-on:click="query">查询</el-button>
+      <router-link :to="{path:'/cms/page/add',query:{
+          page:this.params.page,
+          siteId:this.params.siteId}}">
+        <el-button type="primary">新增</el-button>
+      </router-link>
     </el-form>
 
     <el-table
@@ -48,7 +53,7 @@
   export default {
     data() {
       return {
-        siteList:[],
+        siteList: [],
         list: [],
         total: 0,
         params: {
@@ -71,8 +76,9 @@
         //cmsApi
         cmsApi.page_list(this.params.page, this.params.size, this.params).then((res) => {
           //处理响应的结果
-          console.log(res)
+          // console.log(res)
           this.list = res.queryResult.list;
+          // console.log(this.list)
           //总记录数
           this.total = res.queryResult.total;
         })
