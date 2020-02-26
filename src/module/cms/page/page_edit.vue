@@ -52,7 +52,6 @@
       <el-button type="primary" @click.native="go_back" >返回</el-button>
     </div>
 
-    </el-form>
   </div>
 </template>
 <script>
@@ -65,7 +64,7 @@ export default{
       //站点列表
       siteList:[],
       //模版列表
-      templatList:[],
+      templateList:[],
       //新增界面数据
       pageForm: {
         siteId:'',
@@ -138,31 +137,43 @@ export default{
               this.pageForm = res.cmsPage;
           }
       })
+    },
+    querySite() {
+      cmsApi.site_list().then((res) =>{
+        this.siteList = res.queryResult.list;
+      })
+    },
+    queryTemplate() {
+      cmsApi.template_list().then((res)=>{
+        this.templateList = res.queryResult.list;
+      })
     }
   },
   created(){
     //初始化站点列表
-    this.siteList = [
-      {
-        siteId:'5a751fab6abb5044e0d19ea1',
-        siteName:'门户主站'
-      },
-      {
-        siteId:'102',
-        siteName:'测试站'
-      }
-    ]
+    this.querySite();
+    this.queryTemplate();
+    // this.siteList = [
+    //   {
+    //     siteId:'5a751fab6abb5044e0d19ea1',
+    //     siteName:'门户主站'
+    //   },
+    //   {
+    //     siteId:'102',
+    //     siteName:'测试站'
+    //   }
+    // ]
     //模板列表
-    this.templateList = [
-      {
-        templateId:'5a962b52b00ffc514038faf7',
-        templateName:'首页'
-      },
-      {
-        templateId:'5a962bf8b00ffc514038fafa',
-        templateName:'轮播图'
-      }
-    ]
+    // this.templateList = [
+    //   {
+    //     templateId:'5a962b52b00ffc514038faf7',
+    //     templateName:'首页'
+    //   },
+    //   {
+    //     templateId:'5a962bf8b00ffc514038fafa',
+    //     templateName:'轮播图'
+    //   }
+    // ]
     //根据页面id查询页面信息
     //this.$route.params取路由中的参数，参数名称与路由定义时变量名称一致
     //this.$route.query取路由中key/value的参数

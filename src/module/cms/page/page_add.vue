@@ -22,7 +22,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="页面名称" prop="pageName">
-        <el-input v-model="pageForm.pageName" auto-complete="off"></el-input>
+        <el-input v-model="pageForm.pageName" auto-complete="on"></el-input>
       </el-form-item>
 
       <el-form-item label="别名" prop="pageAliase">
@@ -64,7 +64,7 @@
         //站点列表
         siteList: [],
         //模版列表
-        templatList: [],
+        templateList: [],
         //新增界面数据
         pageForm: {
           siteId: '',
@@ -131,31 +131,43 @@
           }
         })
 //      alert("提交")
+      },
+      querySite() {
+        cmsApi.site_list().then((res) =>{
+          this.siteList = res.queryResult.list;
+        })
+      },
+      queryTemplate() {
+        cmsApi.template_list().then((res)=>{
+          this.templateList = res.queryResult.list();
+        })
       }
     },
     created() {
       //初始化站点列表
-      this.siteList = [
-        {
-          siteId: '5a751fab6abb5044e0d19ea1',
-          siteName: '门户主站'
-        },
-        {
-          siteId: '102',
-          siteName: '测试站'
-        }
-      ]
-      //模板列表
-      this.templateList = [
-        {
-          templateId: '5a962b52b00ffc514038faf7',
-          templateName: '首页'
-        },
-        {
-          templateId: '5a962bf8b00ffc514038fafa',
-          templateName: '轮播图'
-        }
-      ]
+      // this.siteList = [
+      //   {
+      //     siteId: '5a751fab6abb5044e0d19ea1',
+      //     siteName: '门户主站'
+      //   },
+      //   {
+      //     siteId: '102',
+      //     siteName: '测试站'
+      //   }
+      // ]
+      // //模板列表
+      // this.templateList = [
+      //   {
+      //     templateId: '5a962b52b00ffc514038faf7',
+      //     templateName: '首页'
+      //   },
+      //   {
+      //     templateId: '5a962bf8b00ffc514038fafa',
+      //     templateName: '轮播图'
+      //   }
+      // ]
+      this.querySite();
+      this.queryTemplate();
     }
   }
 </script>
