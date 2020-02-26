@@ -29,13 +29,20 @@
       </el-table-column>
       <el-table-column prop="pageAliase" label="别名" width="120">
       </el-table-column>
-      <el-table-column prop="pageType" label="页面类型" width="150">
+      <el-table-column prop="pageType" label="页面类型" width="100">
       </el-table-column>
       <el-table-column prop="pageWebPath" label="访问路径" width="250">
       </el-table-column>
       <el-table-column prop="pagePhysicalPath" label="物理路径" width="250">
       </el-table-column>
       <el-table-column prop="pageCreateTime" label="创建时间" width="180">
+      </el-table-column>
+      <el-table-column  label="操作" width="80">
+        <template slot-scope="page">
+          <el-button size="small" type="text" @click="edit(page.row.pageId)">
+            编辑
+          </el-button>
+        </template>
       </el-table-column>
     </el-table>
     <el-pagination
@@ -82,22 +89,38 @@
           //总记录数
           this.total = res.queryResult.total;
         })
+      },
+      //修改
+      edit: function (pageId) {
+        // alert(this.params.page+'====='+this.params.siteId)
+        this.$router.push({
+          path:'/cms/page/edit/'+pageId,query:{
+            page: this.params.page,
+            siteId:this.params.siteId
+          }
+        })
+
+      },
+      querySite() {
+        cmsApi.site_list().then((res) =>{
+          this.siteList = res.queryResult.list;
+        })
       }
     },
     created() {//vue实例创建完成还没有渲染dom对象
 
     },
     mounted() {//vue实例创建完成并且渲染完成
-      this.query()
-      this.siteList = [{
-        siteId: '5a751fab6abb5044e0d19ea1',
-        siteName: '门户主站'
-      },
-        {
-          siteId: '102',
-          siteName: '测试站'
-        }]
-
+      this.query();
+      // this.siteList = [{
+      //   siteId: '5a751fab6abb5044e0d19ea1',
+      //   siteName: '门户主站'
+      // },
+      //   {
+      //     siteId: '102',
+      //     siteName: '测试站'
+      //   }]
+      this.querySite();
     }
   }
 </script>
